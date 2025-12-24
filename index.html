@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圣诞快乐！</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px 30px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '✨';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            opacity: 0.5;
+        }
+        
+        .container::after {
+            content: '🎄';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 24px;
+            opacity: 0.5;
+        }
+        
+        h1 {
+            color: #ffd700;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .message-box {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.2), rgba(255, 140, 0, 0.2));
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            border-left: 8px solid #ff6b6b;
+            font-size: 1.8em;
+            line-height: 1.8;
+            text-align: left;
+        }
+        
+        .signature {
+            font-size: 1.5em;
+            color: #ffd700;
+            margin-top: 40px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        
+        .decoration {
+            font-size: 60px;
+            margin: 20px 0;
+            opacity: 0.9;
+        }
+        
+        /* 雪花样式 */
+        .snowflake {
+            position: fixed;
+            top: -20px;
+            color: white;
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.8;
+        }
+        
+        /* 手机适配 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2em; }
+            .message-box { 
+                font-size: 1.4em; 
+                padding: 25px;
+            }
+            .container { padding: 30px 20px; }
+            .decoration { font-size: 40px; }
+        }
+        
+        /* 动画效果 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .decoration {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .message-box {
+            animation: float 4s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="decoration">🎄 🎅 🎁</div>
+        
+        <h1>圣诞快乐！🎄</h1>
+        
+        <!-- ============ 修改这里 ============ -->
+        <div class="message-box">
+            珈：<br><br>
+            圣诞快乐呀！<br>
+            祝你平安喜乐。<br>
+            没有烦恼，<br>
+            天天发大财！<br><br>
+            发财了我们去吃炸鸡和啤酒、好不伐？
+        </div>
+        <!-- ============ 修改结束 ============ -->
+        
+        <!-- ============ 修改这里 ============ -->
+        <div class="signature">—— 你的朋友 [韬]</div>
+        <!-- ============ 修改结束 ============ -->
+        
+        <div class="decoration">🦌 🔔 ⛄ ❄️</div>
+    </div>
+
+    <script>
+        // 雪花特效
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            document.body.appendChild(snowflake);
+            
+            // 动画持续时间
+            const duration = Math.random() * 8 + 5;
+            
+            // 创建动画
+            const animation = snowflake.animate([
+                { 
+                    transform: 'translateY(0px) rotate(0deg)',
+                    opacity: snowflake.style.opacity 
+                },
+                { 
+                    transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`,
+                    opacity: 0 
+                }
+            ], {
+                duration: duration * 1000,
+                easing: 'linear'
+            });
+            
+            // 动画结束后移除元素
+            animation.onfinish = () => {
+                snowflake.remove();
+            };
+        }
+        
+        // 每300毫秒创建一个新雪花
+        setInterval(createSnowflake, 300);
+        
+        // 初始创建一些雪花
+        window.addEventListener('load', () => {
+            for(let i = 0; i < 20; i++) {
+                setTimeout(createSnowflake, i * 100);
+            }
+        });
+        
+        // 点击页面任何地方触发更多雪花
+        document.body.addEventListener('click', (e) => {
+            for(let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const snowflake = document.createElement('div');
+                    snowflake.className = 'snowflake';
+                    snowflake.innerHTML = '✨';
+                    snowflake.style.left = e.clientX + (Math.random() * 100 - 50) + 'px';
+                    snowflake.style.top = e.clientY + 'px';
+                    snowflake.style.fontSize = '25px';
+                    snowflake.style.color = '#FFD700';
+                    
+                    document.body.appendChild(snowflake);
+                    
+                    snowflake.animate([
+                        { transform: 'scale(1) translateY(0)', opacity: 1 },
+                        { transform: 'scale(0.5) translateY(-50px)', opacity: 0 }
+                    ], {
+                        duration: 1000,
+                        easing: 'ease-out'
+                    }).onfinish = () => snowflake.remove();
+                }, i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
